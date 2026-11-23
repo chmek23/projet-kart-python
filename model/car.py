@@ -1,7 +1,7 @@
 import pygame
 import math
 from constants import (
-    CAR_ACCELERATION, CAR_WIDTH, CAR_HEIGHT, TILE_SIZE, CAR_TURN_SPEED
+    CAR_ACCELERATION, CAR_WIDTH, CAR_HEIGHT, TILE_SIZE, CAR_TURN_SPEED, CAR_BRAKE, CAR_FRICTION, CAR_REVERSE
 )
 
 
@@ -21,7 +21,11 @@ class Car:
         self.speed += CAR_ACCELERATION
 
     def brake(self) -> None:
-        self.speed -= CAR_ACCELERATION
+        """Freine si la voiture avance, sinon la fait reculer."""
+        if self.speed > 0:
+            self.speed -= CAR_BRAKE
+        else : 
+            self.speed -= CAR_REVERSE
 
     def turn_left(self) -> None:
         self.angle += CAR_TURN_SPEED
@@ -30,6 +34,7 @@ class Car:
         self.angle -= CAR_TURN_SPEED
 
     def update_position(self) -> None:
+        self.speed *= CAR_FRICTION  # On utilise les frottements car ils réduisent la vitesse
         angle_rad = math.radians(self.angle)
         self.x += self.speed * math.cos(angle_rad)  # Partie horizontale
         self.y -= self.speed * math.sin(angle_rad)  # Partie verticale

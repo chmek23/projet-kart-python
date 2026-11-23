@@ -6,7 +6,10 @@ TILE_SIZE = 64
 GRID_COLS = 16
 GRID_ROWS = 12
 
-CAR_ACCELERATION = 0.05
+CAR_ACCELERATION = 0.15
+CAR_BRAKE = 0.4            # Freinage : 3 fois plus fort que l'accélération
+CAR_REVERSE = 0.08          # Marche arrière : Plus lente que la marche avant
+CAR_FRICTION = 0.98
 CAR_WIDTH = 30
 CAR_HEIGHT = 50
 CAR_TURN_SPEED = 3
