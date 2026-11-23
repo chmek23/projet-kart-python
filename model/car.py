@@ -50,12 +50,26 @@ class Car:
         self.angle = 0.0
 
     def build_sprite(self) -> pygame.Surface:
-        # On remplace le rectangle vertical par un rectangle horizontal car la voiture
-        # doit pointer vers la droite lorsque l'angle est de 0
-        surf = pygame.Surface((CAR_HEIGHT, CAR_WIDTH), pygame.SRCALPHA) # 50 x 30 : couché
-        pygame.draw.rect(surf, (self.color), (0, 0, CAR_HEIGHT,
-                         CAR_WIDTH), border_radius=5)
-        pygame.draw.rect(surf, (255, 255, 0), (CAR_HEIGHT - 10, 5, 8, CAR_WIDTH - 10))
+        """Dessine la voiture de dessus"""
+        length, width = CAR_HEIGHT, CAR_WIDTH       # 50 x 30, couchée
+        surf = pygame.Surface((length, width), pygame.SRCALPHA)
+
+        # Roues (dessinées en premier : la carosserie passe par dessus)
+        for x, y in [(5, 0), (35, 0), (5, width - 6), (35, width - 6)]:
+            pygame.draw.rect(surf, (25, 25, 25), (x, y, 10, 6), border_radius=2)
+
+        # Carosserie, à la couleur du joueur
+        pygame.draw.rect(surf, self.color, (1, 4, length - 2, width - 8), border_radius=8)
+        # Bande blanche au milieu
+        pygame.draw.rect(surf, (255, 255, 255), (4, width // 2 - 2, length - 9, 4))
+        # Vitre arrière
+        pygame.draw.rect(surf, (40, 40, 55), (10, 8, 7, width - 16), border_radius=2)
+        # Pare-brise (vers l'avant)
+        pygame.draw.rect(surf, (150, 210, 255), (27, 7, 10, width - 14), border_radius = 3)
+        # Phares
+        pygame.draw.rect(surf, (255, 240, 150), (length - 4, 6, 3, 5), border_radius=1)
+        pygame.draw.rect(surf, (255, 240, 150), (length - 4, width - 11, 3, 5), border_radius = 1)
+
         return surf
 
     def get_rotated_sprite(self) -> tuple[pygame.Surface, pygame.Rect]:
