@@ -1,7 +1,7 @@
 from constants import GameState, GRID_ROWS, GRID_COLS
 from model.car import Car
 from model.circuit import Circuit
-from model.road_tile import RoadTile
+from model.road_tile import Route, Herbe, Terre, Glace, Vide
 
 
 class GameModel: 
@@ -22,10 +22,25 @@ class GameModel:
         self.circuit: Circuit | None = None
         self.cars: list[Car] | None = None
 
-    def load_circuit(self) -> None:
-        """ Crée le circuit et place les voitures sur leur position de départ. """
-        grid = [[RoadTile(col=col_idx, row=row_idx)
-                for row_idx in range(GRID_COLS)] for col_idx in range(GRID_ROWS)]
+    def load_circuit(self, fichier="circuits/circuit1.txt") -> None:
+        """ Crée le circuit à partir d'un fichier texte, puis place les voitures.
+
+        Chaque lettre du fichier est un terrain :
+        R = route, H = herbe, T = terre, G = glace, V = vide.
+        """
+        terrains = {"R": Route, "H": Herbe, "T": Terre, "G": Glace, "V": Vide}
+
+        with open(fichier) as f:
+            lignes = f.readlines()
+
+        grid = []
+        for row_idx in range(GRID_ROWS):
+            ligne = []
+            for col_idx in range(GRID_COLS):
+                lettre = lignes[row_idx][col_idx]
+                ligne.append(terrains[lettre](col_idx, row_idx))
+            grid.append(ligne)
+
         self.circuit = Circuit(grid=grid)
         self.spawn_car()
 
