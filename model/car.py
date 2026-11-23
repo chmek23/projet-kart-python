@@ -1,7 +1,7 @@
 import pygame
 import math
 from constants import (
-    CAR_ACCELERATION, CAR_WIDTH, CAR_HEIGHT, TILE_SIZE
+    CAR_ACCELERATION, CAR_WIDTH, CAR_HEIGHT, TILE_SIZE, CAR_TURN_SPEED
 )
 
 
@@ -20,16 +20,27 @@ class Car:
     def brake(self) -> None:
         self.speed -= CAR_ACCELERATION
 
+    def turn_left(self) -> None:
+        self.angle += CAR_TURN_SPEED
+
+    def turn_right(self) -> None:
+        self.angle -= CAR_TURN_SPEED
+
     def update_position(self) -> None:
-        self.y += self.speed
+        angle_rad = math.radians(self.angle)
+        self.x += self.speed * math.cos(angle_rad)  # Partie horizontale
+        self.y -= self.speed * math.sin(angle_rad)  # Partie verticale
 
     def build_sprite(self) -> pygame.Surface:
-        surf = pygame.Surface((CAR_WIDTH, CAR_HEIGHT), pygame.SRCALPHA)
-        pygame.draw.rect(surf, (255, 0, 0), (0, 0, CAR_WIDTH,
-                         CAR_HEIGHT), border_radius=5)
+        # On remplace le rectangle vertical par un rectangle horizontal car la voiture
+        # doit pointer vers la droite lorsque l'angle est de 0
+        surf = pygame.Surface((CAR_HEIGHT, CAR_WIDTH), pygame.SRCALPHA) # 50 x 30 : couché
+        pygame.draw.rect(surf, (255, 0, 0), (0, 0, CAR_HEIGHT,
+                         CAR_WIDTH), border_radius=5)
+        pygame.draw.rect(surf, (255, 255, 0), (CAR_HEIGHT - 10, 5, 8, CAR_WIDTH - 10))
         return surf
 
     def get_rotated_sprite(self) -> tuple[pygame.Surface, pygame.Rect]:
-        rotated = pygame.transform.rotate(self.sprite, -self.angle)
+        rotated = pygame.transform.rotate(self.sprite, self.angle)
         rect = rotated.get_rect(center=(int(self.x), int(self.y)))
         return rotated, rect
