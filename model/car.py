@@ -7,11 +7,12 @@ from constants import (
 
 class Car:
 
-    def __init__(self, start_col: int, start_row: int):
+    def __init__(self, start_col: int, start_row: int, color):
         self.x = start_col * TILE_SIZE + TILE_SIZE // 2     # Position horizontale (en pixels)
         self.y = start_row * TILE_SIZE + TILE_SIZE // 2     # Position verticale (en pixels)
         self.speed: float = 0.0                             # Vitesse
         self.angle: float = 0.0                             # Orientation
+        self.color = color
         self.sprite = self.build_sprite()
 
     def accelerate(self) -> None:
@@ -35,7 +36,7 @@ class Car:
         # On remplace le rectangle vertical par un rectangle horizontal car la voiture
         # doit pointer vers la droite lorsque l'angle est de 0
         surf = pygame.Surface((CAR_HEIGHT, CAR_WIDTH), pygame.SRCALPHA) # 50 x 30 : couché
-        pygame.draw.rect(surf, (255, 0, 0), (0, 0, CAR_HEIGHT,
+        pygame.draw.rect(surf, (self.color), (0, 0, CAR_HEIGHT,
                          CAR_WIDTH), border_radius=5)
         pygame.draw.rect(surf, (255, 255, 0), (CAR_HEIGHT - 10, 5, 8, CAR_WIDTH - 10))
         return surf

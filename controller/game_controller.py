@@ -6,7 +6,7 @@ from constants import (
 )
 from model.game_model import GameModel
 from view.game_view import GameView
-from controller.input_handler import InputHandler
+from controller.input_handler import InputHandler, MAPPING_P1, MAPPING_P2
 
 
 class GameController:
@@ -16,7 +16,7 @@ class GameController:
         self.clock = pygame.time.Clock()
         self.model = GameModel()
         self.view = GameView(self.screen)
-        self.input_handler = InputHandler()
+        self.input_handlers = [InputHandler(MAPPING_P1), InputHandler(MAPPING_P2)]
         self.running = True
 
     def run(self) -> None:
@@ -53,9 +53,8 @@ class GameController:
             return
 
         # Regarde quelles touches sont maintenues et renvoie un dictionnaire {accelerate : True}
-        p1_input = self.input_handler.get_inputs() 
-        car = self.model.car
-        self.apply_input(car, p1_input)
+        for car, handler in zip(self.model.cars, self.input_handlers):
+            self.apply_input(car, handler.get_inputs())
         self.model.update()
 
     def apply_input(self, car, player_input) -> None:

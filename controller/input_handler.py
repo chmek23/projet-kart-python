@@ -1,18 +1,26 @@
 import pygame
 
+MAPPING_P1 = {
+    pygame.K_z: "accelerate",
+    pygame.K_w: "accelerate",
+    pygame.K_s: "brake",
+    pygame.K_q: "turn_left",
+    pygame.K_a: "turn_left",
+    pygame.K_d: "turn_right"
+}
 
-MAPPING = {
+MAPPING_P2 = {
     pygame.K_UP:    "accelerate",
     pygame.K_DOWN:  "brake",
     pygame.K_LEFT:  "turn_left",
-    pygame.K_RIGHT: "turn_right"
+    pygame.K_RIGHT: "turn_right",
 }
 
 
 class InputHandler:
 
-    def __init__(self):
-        self.mapping = MAPPING
+    def __init__(self, mapping: dict):
+        self.mapping = mapping
 
     def get_inputs(self) -> dict:
         keys = pygame.key.get_pressed() # vaut TRUE si la touche du haut est enfoncée en ce moment
