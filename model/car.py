@@ -10,6 +10,8 @@ class Car:
     def __init__(self, start_col: int, start_row: int, color):
         self.x = start_col * TILE_SIZE + TILE_SIZE // 2     # Position horizontale (en pixels)
         self.y = start_row * TILE_SIZE + TILE_SIZE // 2     # Position verticale (en pixels)
+        self.respawn_x = self.x
+        self.respawn_y = self.y
         self.speed: float = 0.0                             # Vitesse
         self.angle: float = 0.0                             # Orientation
         self.color = color
@@ -31,6 +33,16 @@ class Car:
         angle_rad = math.radians(self.angle)
         self.x += self.speed * math.cos(angle_rad)  # Partie horizontale
         self.y -= self.speed * math.sin(angle_rad)  # Partie verticale
+
+    def respawn(self) -> None:
+        """
+        Replace la voiture à son point de réeapparition, 
+        arrêtée et tournée vers la droite.
+        """
+        self.x = self.respawn_x
+        self.y = self.respawn_y
+        self.speed = 0.0
+        self.angle = 0.0
 
     def build_sprite(self) -> pygame.Surface:
         # On remplace le rectangle vertical par un rectangle horizontal car la voiture

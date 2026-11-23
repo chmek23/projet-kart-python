@@ -29,3 +29,6 @@ class GameModel:
 
         for car in self.cars:
             car.update_position()
+            tile = self.circuit.get_tile_at_pixel(car.x, car.y)
+            if tile is None:    # Pas de case sous la voiture : elle est sortie 
+                car.respawn()
