@@ -8,12 +8,28 @@ from model.game_model import GameModel
 
 
 class GameView:
+    """ Classe qui dessine l'état du modèle à l'écran, sans jamais le modifier.
+
+    Attributs :
+    ----------
+    - screen : pygame.Surface
+        La fenêtre dans laquelle on dessine.
+    - font : pygame.font.Font
+        La police utilisée pour les textes.
+    """
 
     def __init__(self, screen: pygame.Surface):
         self.screen = screen
         self.font = pygame.font.SysFont("Arial", 24)
 
     def draw(self, model: GameModel) -> None:
+        """ Dessine l'écran qui correspond à l'état du jeu (menu ou course).
+
+        Paramètres :
+        ----------
+        - model : GameModel
+            L'état du jeu à afficher.
+        """
         self.screen.fill(COLOR_BG)
         if model.state == GameState.MENU:
             self._draw_menu(model)
@@ -22,6 +38,13 @@ class GameView:
         pygame.display.flip()
 
     def _draw_menu(self, model: GameModel) -> None:
+        """ Dessine le menu principal : le titre et les boutons Jouer et Quitter.
+
+        Paramètres :
+        ----------
+        - model : GameModel
+            L'état du jeu à afficher.
+        """
         cx = WINDOW_WIDTH // 2
 
         title_surf = self.font.render(
@@ -41,7 +64,13 @@ class GameView:
             self.screen.blit(text_surf, text_surf.get_rect(center=rect.center))
 
     def _draw_racing(self, model: GameModel) -> None:
+        """ Dessine la course : les cases du circuit, puis les voitures par-dessus.
 
+        Paramètres :
+        ----------
+        - model : GameModel
+            L'état du jeu à afficher.
+        """
         for row_idx, row in enumerate(model.circuit.grid):
             for col_idx, tile in enumerate(row):
                 sprite = tile.get_sprite(TILE_SIZE)

@@ -16,6 +16,15 @@ CAR_TURN_SPEED = 3
 
 
 class GameState:
+    """ Classe regroupant les états possibles du jeu.
+
+    Attributs :
+    ----------
+    - MENU : str
+        Le menu principal est affiché.
+    - RACING : str
+        Une course est en cours.
+    """
     MENU = "menu"
     RACING = "racing"
 

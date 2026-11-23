@@ -6,6 +6,24 @@ from constants import (
 
 
 class Car:
+    """ Classe représentant la voiture d'un joueur.
+    
+    Attributs :
+    ----------
+    
+    - x, y : float
+        La position du centre de la voiture, en pixels.
+    - respawn_x, respawn_y : float
+        La position où la voiture réapparait quand elle sort de la carte.
+    - speed : float
+        La vitesse de la voiture, négative en marche arrière.
+    - angle : float
+        L'orientation de la voiture en degrés (0 = vers la droite, sens trigonométrique).
+    - color: tuple[int, int, int]
+        La couleur de la carrosserie (rouge, vert, bleu).
+    - sprite : pygame.Surface
+        Le dessin de la voiture, pointant vers la droite.
+    """
 
     def __init__(self, start_col: int, start_row: int, color):
         self.x = start_col * TILE_SIZE + TILE_SIZE // 2     # Position horizontale (en pixels)
