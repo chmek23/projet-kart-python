@@ -4,7 +4,7 @@ from model.circuit import Circuit
 from model.road_tile import RoadTile
 
 
-class GameModel:
+class GameModel: 
     """ Classe représentant l'état complet du jeu.
 
     Attributs :
