@@ -2,9 +2,9 @@ WINDOW_WIDTH = 1024
 WINDOW_HEIGHT = 768
 FPS = 60
 
-TILE_SIZE = 64
-GRID_COLS = 16
-GRID_ROWS = 12
+TILE_SIZE = 32
+GRID_COLS = 32
+GRID_ROWS = 24
 
 CAR_ACCELERATION = 0.15
 CAR_BRAKE = 0.4            # Freinage : 3 fois plus fort que l'accélération
