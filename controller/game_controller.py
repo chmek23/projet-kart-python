@@ -67,9 +67,11 @@ class GameController:
 
         if state == GameState.MENU:
             self.handle_menu_key(key)
+        elif state == GameState.CHOIX_CIRCUIT:
+            self.handle_choix_key(key)
 
     def handle_menu_key(self, key: int) -> None:
-        """ Gère une touche dans le menu : Entrée lance la course, Échap quitte le jeu.
+        """ Gère une touche dans le menu : Entrée ouvre le choix du circuit, Échap quitte le jeu.
 
         Paramètres :
         ----------
@@ -77,10 +79,28 @@ class GameController:
             Le code pygame de la touche enfoncée.
         """
         if key == pygame.K_RETURN:
-            self.model.load_circuit()
-            self.model.state = GameState.RACING
+            self.model.state = GameState.CHOIX_CIRCUIT
         elif key == pygame.K_ESCAPE:
             self.quit()
+
+    def handle_choix_key(self, key: int) -> None:
+        """ Gère une touche dans le choix du circuit : les flèches changent de circuit,
+        Entrée lance la course, Échap revient au menu.
+
+        Paramètres :
+        ----------
+        - key : int
+            Le code pygame de la touche enfoncée.
+        """
+        if key == pygame.K_UP and self.model.selected > 0:
+            self.model.selected -= 1
+        elif key == pygame.K_DOWN and self.model.selected < 2:
+            self.model.selected += 1
+        elif key == pygame.K_RETURN:
+            self.model.load_circuit(self.model.circuits[self.model.selected])
+            self.model.state = GameState.RACING
+        elif key == pygame.K_ESCAPE:
+            self.model.state = GameState.MENU
 
     def update(self) -> None:
         """ Pendant la course, applique les commandes de chaque joueur à sa voiture,
