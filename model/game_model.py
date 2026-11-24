@@ -15,12 +15,18 @@ class GameModel:
         Le circuit de la course, None tant qu'aucune course n'est lancée.
     - cars : list[Car]
         Les voitures des joueurs (la première est celle du joueur 1).
+    - circuits : list[str]
+        Les fichiers des circuits proposés dans le menu (facile, moyen, difficile).
+    - selected : int
+        L'indice du circuit sélectionné dans le menu.
     """
 
     def __init__(self):
         self.state: str = GameState.MENU
         self.circuit: Circuit | None = None
         self.cars: list[Car] | None = None
+        self.circuits = ["circuits/circuit2.txt", "circuits/circuit1.txt", "circuits/circuit3.txt"]
+        self.selected = 0
 
     def load_circuit(self, fichier="circuits/circuit1.txt") -> None:
         """ Crée le circuit à partir d'un fichier texte, puis place les voitures.
