@@ -4,13 +4,13 @@ from model.circuit import Circuit
 from model.road_tile import Route, Herbe, Terre, Glace, Vide
 
 
-class GameModel: 
+class GameModel:
     """ Classe représentant l'état complet du jeu.
 
     Attributs :
     ----------
     - state : str
-        L'état courant du jeu (GameState.MENU ou GameState.RACING).
+        L'état courant du jeu (MENU, CHOIX_CIRCUIT ou RACING)
     - circuit : Circuit | None
         Le circuit de la course, None tant qu'aucune course n'est lancée.
     - cars : list[Car]
