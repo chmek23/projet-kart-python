@@ -69,6 +69,8 @@ class GameController:
             self.handle_menu_key(key)
         elif state == GameState.CHOIX_CIRCUIT:
             self.handle_choix_key(key)
+        elif state == GameState.RACING and key == pygame.K_ESCAPE:
+            self.model.state = GameState.CHOIX_CIRCUIT
 
     def handle_menu_key(self, key: int) -> None:
         """ Gère une touche dans le menu : Entrée ouvre le choix du circuit, Échap quitte le jeu.
