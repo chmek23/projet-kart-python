@@ -52,12 +52,12 @@ class GameModel:
         ]
 
     def update(self) -> None:
-        """ Déplace chaque voiture, et la fait réapparaître si elle est sortie de la carte. """
+        """ Déplace chaque voiture, et la fait réapparaître si elle tombe dans le vide ou sort de la carte. """
         if self.state != GameState.RACING or self.circuit is None:
             return
 
         for car in self.cars:
             car.update_position()
             tile = self.circuit.get_tile_at_pixel(car.x, car.y)
-            if tile is None:    # Pas de case sous la voiture : elle est sortie 
+            if tile is None or isinstance(tile, Vide):    # Hors de la carte ou sur du vide
                 car.respawn()
