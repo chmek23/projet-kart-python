@@ -32,37 +32,43 @@ class GameView:
         """
         self.screen.fill(COLOR_BG)
         if model.state == GameState.MENU:
-            self._draw_menu(model)
+            self._draw_menu("Jeu de course 2D", ["JOUER (Entrée)", "QUITTER (Échap)"], 0)
+        elif model.state == GameState.CHOIX_CIRCUIT:
+            self._draw_menu("Choisis un circuit", ["Facile", "Moyen", "Difficile"], model.selected)
         elif model.state == GameState.RACING:
             self._draw_racing(model)
         pygame.display.flip()
 
-    def _draw_menu(self, model: GameModel) -> None:
-        """ Dessine le menu principal : le titre et les boutons Jouer et Quitter.
+    def _draw_menu(self, titre, options, selected) -> None:
+        """ Dessine un menu : un titre et un bouton par option, le bouton sélectionné en jaune.
+        Sert pour le menu principal et pour le choix du circuit.
 
         Paramètres :
         ----------
-        - model : GameModel
-            L'état du jeu à afficher.
+        - titre : str
+            Le titre affiché en haut.
+        - options : list[str]
+            Le texte de chaque bouton.
+        - selected : int
+            L'indice du bouton sélectionné.
         """
         cx = WINDOW_WIDTH // 2
 
-        title_surf = self.font.render(
-            "Jeu de course 2D", True, COLOR_ACCENT)
+        title_surf = self.font.render(titre, True, COLOR_ACCENT)
         self.screen.blit(title_surf, title_surf.get_rect(center=(cx, 160)))
 
-        options = [("JOUER (Enter)", GameState.RACING),
-                   ("QUITTER (Escape)", None)]
-        for i, (label, _) in enumerate(options):
+        for i, label in enumerate(options):
             y = 320 + i * 80
             rect = pygame.Rect(cx - 140, y - 25, 280, 50)
+            if i == selected:
+                couleur = COLOR_ACCENT
+            else:
+                couleur = COLOR_TEXT
             pygame.draw.rect(self.screen, COLOR_PANEL, rect, border_radius=8)
-            pygame.draw.rect(self.screen, COLOR_PANEL_BORDER,
-                             rect, 2, border_radius=8)
-            text_surf = self.font.render(
-                label, True, COLOR_ACCENT if i == 0 else COLOR_TEXT)
+            pygame.draw.rect(self.screen, couleur, rect, 2, border_radius=8)
+            text_surf = self.font.render(label, True, couleur)
             self.screen.blit(text_surf, text_surf.get_rect(center=rect.center))
-
+            
     def _draw_racing(self, model: GameModel) -> None:
         """ Dessine la course : les cases du circuit, puis les voitures par-dessus.
 
