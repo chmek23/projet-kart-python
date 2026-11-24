@@ -80,3 +80,21 @@ class Vide(RoadTile):
 
     def __init__(self, col, row):
         super().__init__(col, row, (0, 0, 0), 0.0, 0.0, 0.0)
+
+class Mur(RoadTile):
+    """ Mur en béton : la voiture ne peut pas le traverser. """
+
+    def __init__(self, col, row):
+        super().__init__(col, row, (150, 150, 155), 0.0, 0.0, 0.0)
+
+    def get_sprite(self, tile_size: int = TILE_SIZE) -> pygame.Surface:
+        """ Dessine un bloc de béton : la case grise de la classe mère, avec des joints. """
+        surface = super().get_sprite(tile_size)
+        moitie = tile_size // 2
+        quart = tile_size // 4
+        joint = (110, 110, 115)
+        pygame.draw.line(surface, joint, (0, moitie), (tile_size, moitie), 2)
+        pygame.draw.line(surface, joint, (moitie, 0), (moitie, moitie), 2)
+        pygame.draw.line(surface, joint, (quart, moitie), (quart, tile_size), 2)
+        pygame.draw.line(surface, joint, (3 * quart, moitie), (3 * quart, tile_size), 2)
+        return surface
