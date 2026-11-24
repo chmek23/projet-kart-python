@@ -25,7 +25,7 @@ class GameModel:
         self.state: str = GameState.MENU
         self.circuit: Circuit | None = None
         self.cars: list[Car] | None = None
-        self.circuits = ["circuits/circuit2.txt", "circuits/circuit1.txt", "circuits/circuit3.txt"]
+        self.circuits = ["circuits/circuit1.txt", "circuits/circuit2.txt", "circuits/circuit3.txt"]
         self.selected = 0
 
     def load_circuit(self, fichier="circuits/circuit1.txt") -> None:
