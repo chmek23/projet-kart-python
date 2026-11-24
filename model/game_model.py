@@ -63,7 +63,11 @@ class GameModel:
             return
 
         for car in self.cars:
+            ancien_x, ancien_y = car.x, car.y
             car.update_position()
             tile = self.circuit.get_tile_at_pixel(car.x, car.y)
             if tile is None or isinstance(tile, Vide):    # Hors de la carte ou sur du vide
                 car.respawn()
+            elif isinstance(tile, Mur):    # Contre un mur : la voiture reste à sa place
+                car.x, car.y = ancien_x, ancien_y
+                car.speed = 0.0
