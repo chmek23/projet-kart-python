@@ -22,10 +22,13 @@ class GameState:
     ----------
     - MENU : str
         Le menu principal est affiché.
+    - CHOIX_CIRCUIT : str
+        L'écran de choix du circuit est affiché.
     - RACING : str
         Une course est en cours.
     """
     MENU = "menu"
+    CHOIX_CIRCUIT = "choix_circuit"
     RACING = "racing"
 
 
