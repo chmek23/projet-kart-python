@@ -1,7 +1,7 @@
 from constants import GameState, GRID_ROWS, GRID_COLS
 from model.car import Car
 from model.circuit import Circuit
-from model.road_tile import Route, Herbe, Terre, Glace, Vide
+from model.road_tile import Route, Herbe, Terre, Glace, Vide, Mur
 
 
 class GameModel:
@@ -34,7 +34,7 @@ class GameModel:
         Chaque lettre du fichier est un terrain :
         R = route, H = herbe, T = terre, G = glace, V = vide.
         """
-        terrains = {"R": Route, "H": Herbe, "T": Terre, "G": Glace, "V": Vide}
+        terrains = {"R": Route, "H": Herbe, "T": Terre, "G": Glace, "V": Vide, "M": Mur}
 
         with open(fichier) as f:
             lignes = f.readlines()
