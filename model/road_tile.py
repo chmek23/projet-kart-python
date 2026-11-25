@@ -81,6 +81,7 @@ class Vide(RoadTile):
     def __init__(self, col, row):
         super().__init__(col, row, (0, 0, 0), 0.0, 0.0, 0.0)
 
+
 class Mur(RoadTile):
     """ Mur en béton : la voiture ne peut pas le traverser. """
 
