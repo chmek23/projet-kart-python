@@ -17,6 +17,8 @@ class GameModel:
         Les voitures des joueurs (la première est celle du joueur 1).
     - circuits : list[str]
         Les fichiers des circuits proposés dans le menu (facile, moyen, difficile).
+    - circuit_names : list[str]
+        Le nom affiché dans le menu pour chaque circuit, dans le même ordre que circuits.
     - selected : int
         L'indice du circuit sélectionné dans le menu.
     """
@@ -26,6 +28,7 @@ class GameModel:
         self.circuit: Circuit | None = None
         self.cars: list[Car] | None = None
         self.circuits = ["circuits/circuit1.txt", "circuits/circuit2.txt", "circuits/circuit3.txt"]
+        self.circuit_names = ["Facile", "Moyen", "Difficile"]
         self.selected = 0
 
     def load_circuit(self, fichier="circuits/circuit1.txt") -> None:

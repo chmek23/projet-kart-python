@@ -34,7 +34,7 @@ class GameView:
         if model.state == GameState.MENU:
             self._draw_menu("Jeu de course 2D", ["JOUER (Entrée)", "QUITTER (Échap)"], 0)
         elif model.state == GameState.CHOIX_CIRCUIT:
-            self._draw_menu("Choisis un circuit", ["Facile", "Moyen", "Difficile"], model.selected)
+            self._draw_menu("Choisis un circuit", model.circuit_names, model.selected)
         elif model.state == GameState.RACING:
             self._draw_racing(model)
         pygame.display.flip()

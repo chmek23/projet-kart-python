@@ -96,7 +96,7 @@ class GameController:
         """
         if key == pygame.K_UP and self.model.selected > 0:
             self.model.selected -= 1
-        elif key == pygame.K_DOWN and self.model.selected < 2:
+        elif key == pygame.K_DOWN and self.model.selected < len(self.model.circuits) - 1:
             self.model.selected += 1
         elif key == pygame.K_RETURN:
             self.model.load_circuit(self.model.circuits[self.model.selected])
