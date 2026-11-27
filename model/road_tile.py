@@ -7,7 +7,7 @@ class RoadTile(ABC):
     """ Classe mère abstraite représentant une case du circuit.
 
     On ne crée jamais de RoadTile directement : on crée un terrain
-    (Route, Herbe, Terre, Glace, Vide) qui hérite de cette classe.
+    (Route, Herbe, Terre, Glace, Vide, Mur) qui hérite de cette classe.
 
     Attributs :
     ----------

@@ -42,7 +42,7 @@ class GameController:
             self.handle_events()    # 1. Lire les événements (fermer la fenêtre, touche appuyée)
             self.update()           # 2. Mettre à jour le modèle (la voiture bouge)
             self.render()           # 3. Tout redessiner
-            self.clock.tick(FPS)    # 4. Attendre pour faire 60 tours par seconde 
+            self.clock.tick(FPS)    # 4. Attendre pour faire 60 tours par seconde
 
     def handle_events(self) -> None:
         """ Traite les événements de la frame : fermeture de la fenêtre

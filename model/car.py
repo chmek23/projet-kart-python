@@ -1,16 +1,17 @@
 import pygame
 import math
 from constants import (
-    CAR_ACCELERATION, CAR_WIDTH, CAR_HEIGHT, TILE_SIZE, CAR_TURN_SPEED, CAR_BRAKE, CAR_FRICTION, CAR_REVERSE
+    CAR_ACCELERATION, CAR_BRAKE, CAR_REVERSE, CAR_FRICTION,
+    CAR_TURN_SPEED, CAR_WIDTH, CAR_HEIGHT, TILE_SIZE
 )
 
 
 class Car:
     """ Classe représentant la voiture d'un joueur.
-    
+
     Attributs :
     ----------
-    
+
     - x, y : float
         La position du centre de la voiture, en pixels.
     - respawn_x, respawn_y : float
@@ -25,7 +26,7 @@ class Car:
         Le dessin de la voiture, pointant vers la droite.
     """
 
-    def __init__(self, start_col: int, start_row: int, color):
+    def __init__(self, start_col: int, start_row: int, color: tuple[int, int, int]):
         self.x = start_col * TILE_SIZE + TILE_SIZE // 2     # Position horizontale (en pixels)
         self.y = start_row * TILE_SIZE + TILE_SIZE // 2     # Position verticale (en pixels)
         self.respawn_x = self.x
@@ -42,7 +43,7 @@ class Car:
         """Freine si la voiture avance, sinon la fait reculer."""
         if self.speed > 0:
             self.speed -= CAR_BRAKE
-        else : 
+        else:
             self.speed -= CAR_REVERSE
 
     def turn_left(self) -> None:
@@ -59,7 +60,7 @@ class Car:
 
     def respawn(self) -> None:
         """
-        Replace la voiture à son point de réeapparition, 
+        Replace la voiture à son point de réapparition,
         arrêtée et tournée vers la droite.
         """
         self.x = self.respawn_x
@@ -83,10 +84,10 @@ class Car:
         # Vitre arrière
         pygame.draw.rect(surf, (40, 40, 55), (10, 8, 7, width - 16), border_radius=2)
         # Pare-brise (vers l'avant)
-        pygame.draw.rect(surf, (150, 210, 255), (27, 7, 10, width - 14), border_radius = 3)
+        pygame.draw.rect(surf, (150, 210, 255), (27, 7, 10, width - 14), border_radius=3)
         # Phares
         pygame.draw.rect(surf, (255, 240, 150), (length - 4, 6, 3, 5), border_radius=1)
-        pygame.draw.rect(surf, (255, 240, 150), (length - 4, width - 11, 3, 5), border_radius = 1)
+        pygame.draw.rect(surf, (255, 240, 150), (length - 4, width - 11, 3, 5), border_radius=1)
 
         return surf
 

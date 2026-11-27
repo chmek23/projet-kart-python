@@ -68,7 +68,7 @@ class GameView:
             pygame.draw.rect(self.screen, couleur, rect, 2, border_radius=8)
             text_surf = self.font.render(label, True, couleur)
             self.screen.blit(text_surf, text_surf.get_rect(center=rect.center))
-            
+
     def _draw_racing(self, model: GameModel) -> None:
         """ Dessine la course : les cases du circuit, puis les voitures par-dessus.
 
@@ -77,14 +77,14 @@ class GameView:
         - model : GameModel
             L'état du jeu à afficher.
         """
+        if model.circuit is None:
+            return
+
         for row_idx, row in enumerate(model.circuit.grid):
             for col_idx, tile in enumerate(row):
                 sprite = tile.get_sprite(TILE_SIZE)
                 self.screen.blit(
                     sprite, (col_idx * TILE_SIZE, row_idx * TILE_SIZE))
-
-        if model.circuit is None:
-            return
 
         for car in model.cars:
             surf, rect = car.get_rotated_sprite()

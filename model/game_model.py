@@ -26,7 +26,7 @@ class GameModel:
     def __init__(self):
         self.state: str = GameState.MENU
         self.circuit: Circuit | None = None
-        self.cars: list[Car] | None = None
+        self.cars: list[Car] = []
         self.circuits = ["circuits/circuit1.txt", "circuits/circuit2.txt", "circuits/circuit3.txt"]
         self.circuit_names = ["Facile", "Moyen", "Difficile"]
         self.selected = 0
@@ -35,7 +35,7 @@ class GameModel:
         """ Crée le circuit à partir d'un fichier texte, puis place les voitures.
 
         Chaque lettre du fichier est un terrain :
-        R = route, H = herbe, T = terre, G = glace, V = vide.
+        R = route, H = herbe, T = terre, G = glace, V = vide, M = mur.
         """
         terrains = {"R": Route, "H": Herbe, "T": Terre, "G": Glace, "V": Vide, "M": Mur}
 
@@ -61,7 +61,8 @@ class GameModel:
         ]
 
     def update(self) -> None:
-        """ Déplace chaque voiture, et la fait réapparaître si elle tombe dans le vide ou sort de la carte. """
+        """ Déplace chaque voiture, et la fait réapparaître si elle tombe dans le vide
+        ou sort de la carte, et la bloque si elle touche un mur."""
         if self.state != GameState.RACING or self.circuit is None:
             return
 
