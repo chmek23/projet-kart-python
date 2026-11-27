@@ -2,7 +2,7 @@ import pygame
 import math
 from constants import (
     CAR_ACCELERATION, CAR_BRAKE, CAR_REVERSE, CAR_FRICTION,
-    CAR_TURN_SPEED, CAR_WIDTH, CAR_HEIGHT, TILE_SIZE
+    CAR_TURN_SPEED, CAR_WIDTH, CAR_HEIGHT, TILE_SIZE, CAR_SCALE
 )
 
 
@@ -43,7 +43,7 @@ class Car:
         """Freine si la voiture avance, sinon la fait reculer."""
         if self.speed > 0:
             self.speed -= CAR_BRAKE
-        else:
+        else : 
             self.speed -= CAR_REVERSE
 
     def turn_left(self) -> None:
@@ -69,7 +69,7 @@ class Car:
         self.angle = 0.0
 
     def build_sprite(self) -> pygame.Surface:
-        """Dessine la voiture de dessus"""
+        """Dessine la voiture de dessus puis redimensionne la voiture en réduisant son image"""
         length, width = CAR_HEIGHT, CAR_WIDTH       # 50 x 30, couchée
         surf = pygame.Surface((length, width), pygame.SRCALPHA)
 
@@ -84,12 +84,14 @@ class Car:
         # Vitre arrière
         pygame.draw.rect(surf, (40, 40, 55), (10, 8, 7, width - 16), border_radius=2)
         # Pare-brise (vers l'avant)
-        pygame.draw.rect(surf, (150, 210, 255), (27, 7, 10, width - 14), border_radius=3)
+        pygame.draw.rect(surf, (150, 210, 255), (27, 7, 10, width - 14), border_radius = 3)
         # Phares
         pygame.draw.rect(surf, (255, 240, 150), (length - 4, 6, 3, 5), border_radius=1)
-        pygame.draw.rect(surf, (255, 240, 150), (length - 4, width - 11, 3, 5), border_radius=1)
+        pygame.draw.rect(surf, (255, 240, 150), (length - 4, width - 11, 3, 5), border_radius = 1)
 
-        return surf
+        # On réduit le dessin pour l'adapter à la taille des cases
+        small_size = (int(length * CAR_SCALE), int(width * CAR_SCALE))
+        return pygame.transform.smoothscale(surf, small_size)    # smoothscale redimensionne une image en lissant les bords
 
     def get_rotated_sprite(self) -> tuple[pygame.Surface, pygame.Rect]:
         rotated = pygame.transform.rotate(self.sprite, self.angle)

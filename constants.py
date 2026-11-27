@@ -6,12 +6,13 @@ TILE_SIZE = 32
 GRID_COLS = 32
 GRID_ROWS = 24
 
-CAR_ACCELERATION = 0.15
-CAR_BRAKE = 0.4            # Freinage : 3 fois plus fort que l'accélération
-CAR_REVERSE = 0.08          # Marche arrière : Plus lente que la marche avant
+CAR_ACCELERATION = 0.1
+CAR_BRAKE = 0.3             # Freinage : 3 fois plus fort que l'accélération
+CAR_REVERSE = 0.05          # Marche arrière : Plus lente que la marche avant
 CAR_FRICTION = 0.98
 CAR_WIDTH = 30
 CAR_HEIGHT = 50
+CAR_SCALE = 0.7            # La voiture est dessinée en 50x30 puis réduite (~ 28x16 px)
 CAR_TURN_SPEED = 3
 
 
